@@ -1,6 +1,8 @@
 {
   "cSpell.words": [
     "ASPNETCORE",
-    "Autoincrement"
+    "Autoincrement",
+    "hmac",
+    "HMACSHA"
   ]
 }
