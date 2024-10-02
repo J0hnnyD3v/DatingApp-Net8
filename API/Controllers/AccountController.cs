@@ -18,24 +18,25 @@ public class AccountController(DataContext context, ITokenService tokenService) 
         if (await UserExists(registerDto.Email)) return BadRequest("User already exists");
 
         // create user
-        using var hmac = new HMACSHA512();
-        var user = new AppUser
-        {
-            FirstName = registerDto.FirstName,
-            LastName = registerDto.LastName,
-            Email = registerDto.Email.ToLower(),
-            PasswordHash = hmac.ComputeHash(Encoding.UTF8.GetBytes(registerDto.Password)),
-            PasswordSalt = hmac.Key
-        };
-        context.Users.Add(user);
-        await context.SaveChangesAsync();
-        var userDto = new UserDto
-        {
-            UserName = $"{user.FirstName} {user.LastName}",
-            Email = user.Email,
-            Token = tokenService.CreateToken(user)
-        };
-        return Ok(userDto);
+        return Ok();
+        // using var hmac = new HMACSHA512();
+        // var user = new AppUser
+        // {
+        //     FirstName = registerDto.FirstName,
+        //     LastName = registerDto.LastName,
+        //     Email = registerDto.Email.ToLower(),
+        //     PasswordHash = hmac.ComputeHash(Encoding.UTF8.GetBytes(registerDto.Password)),
+        //     PasswordSalt = hmac.Key
+        // };
+        // context.Users.Add(user);
+        // await context.SaveChangesAsync();
+        // var userDto = new UserDto
+        // {
+        //     UserName = $"{user.FirstName} {user.LastName}",
+        //     Email = user.Email,
+        //     Token = tokenService.CreateToken(user)
+        // };
+        // return Ok(userDto);
     }
 
     [HttpPost("login")] // api/account/login
